@@ -1,25 +1,26 @@
 package main
 
 import (
-	"encoding/json"
+	"fmt"
 	"log"
+	"net/http"
 
-	"github.com/ghostriderdev/housierBack/internal/models"
+	"github.com/ghostriderdev/housierBack/cfg"
 )
 
 func main() {
-	log.Println("Starting app")
-	user := models.User{
-		Email: "Olvadis",
-		Password: "12345",
-		Role: models.ROLE_USER,
-	}
-
-	decoded, err := json.Marshal(user)
+	config, err := cfg.LoadConfig()
 
 	if err != nil {
-		panic("Error to marshal user to json")
+		panic(err)
 	}
 
-	log.Printf("User created: %s", string(decoded))
+	server := &http.Server{
+		Addr:    fmt.Sprintf(":%d", config.ServerCfg.Port),
+		Handler: http.HandlerFunc(router),
+	}
+
+	log.Printf("Running server on http://127.0.0.1:%d\n", config.ServerCfg.Port)
+
+	log.Fatal(server.ListenAndServe())
 }
