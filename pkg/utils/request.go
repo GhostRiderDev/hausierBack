@@ -11,5 +11,9 @@ func ExtractPath(url *url.URL, position uint8) string {
 		return char == '/'
 	})
 
+	if len(dirs) == 0 {
+		return ""
+	}
+
 	return dirs[position]
 }

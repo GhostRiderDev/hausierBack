@@ -15,12 +15,14 @@ func main() {
 		panic(err)
 	}
 
+	serverPort := config.ServerCfg.Port
+
 	server := &http.Server{
-		Addr:    fmt.Sprintf(":%d", config.ServerCfg.Port),
+		Addr:    fmt.Sprintf(":%d", serverPort),
 		Handler: http.HandlerFunc(router),
 	}
 
-	log.Printf("Running server on http://127.0.0.1:%d\n", config.ServerCfg.Port)
+	log.Printf("Running server on http://127.0.0.1:%d\n", serverPort)
 
 	log.Fatal(server.ListenAndServe())
 }
