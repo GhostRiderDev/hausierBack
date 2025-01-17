@@ -2,9 +2,11 @@ FROM alpine:latest
 
 WORKDIR /root/
 
-COPY build/ .
+COPY build/release/main .
+
+COPY cfg/app.json ./cfg/app.json
 
 
-EXPOSE 5050
+EXPOSE 6060
 
 CMD ["./main"]

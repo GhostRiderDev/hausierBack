@@ -5,6 +5,8 @@ export GOOS=linux
 BUILD_PATH="build/release"
 VERSION_DIR="metadata/version"
 VERSION_FILE="$VERSION_DIR/.env"
+SERVICE_NAME="houser-api"
+DOCKER_USERNAME="olvadis"
 
 [ -d "$VERSION_DIR" ] || mkdir -p "$VERSION_DIR"
 [ -f "$VERSION_FILE" ] || touch "$VERSION_FILE"
@@ -93,4 +95,8 @@ git commit -m "Releasing version v$NEW_VERSION"
 git tag -a "v$NEW_VERSION" -m "Releasing version v$NEW_VERSION"
 git push origin "v$NEW_VERSION"
 
+DOCKER_TAG="$DOCKER_USERNAME"/"$SERVICE_NAME":"v$NEW_VERSION"
+
+docker build --no-cache -t "$DOCKER_TAG"  .
+docker push "$DOCKER_TAG"
 
