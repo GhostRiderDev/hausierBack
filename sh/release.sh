@@ -91,6 +91,6 @@ go build -o "$BUILD_PATH/main" cmd/*.go
 git add .
 git commit -m "Releasing version v$NEW_VERSION"
 git tag -a "v$NEW_VERSION" -m "Releasing version v$NEW_VERSION"
-git push
+git push origin "v$NEW_VERSION"
 
 
