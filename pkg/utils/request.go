@@ -10,8 +10,7 @@ func ExtractPath(url *url.URL, position uint8) string {
 	dirs := strings.FieldsFunc(path, func(char rune) bool {
 		return char == '/'
 	})
-
-	if len(dirs) == 0 {
+	if len(dirs) < (int(position) + 1) {
 		return ""
 	}
 
