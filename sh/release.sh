@@ -3,8 +3,10 @@
 export GOOS=linux
 
 BUILD_PATH="build/release"
-VERSION_DIR="metadata/version"
+VERSION_DIR=".metadata/version"
 VERSION_FILE="$VERSION_DIR/.env"
+
+#!!! IMPORTANT CHANGE THIS !!!
 SERVICE_NAME="houser-api"
 DOCKER_USERNAME="olvadis"
 
