@@ -2,21 +2,18 @@ package main
 
 import (
 	"net/http"
-
-	"github.com/ghostriderdev/housierBack/pkg/utils"
-	"github.com/ghostriderdev/housierBack/routes"
-	"github.com/ghostriderdev/housierBack/templates"
 )
 
-func router(w http.ResponseWriter, r *http.Request) {
-	route := utils.ExtractPath(r.URL, 0)
+const RouteNotFound = "Route not found"
 
-	switch route {
-	case "auth":
-		routes.AuthRouter(w, r)
-	default:
+func router(w http.ResponseWriter, r *http.Request, app *App) {
+	result, isPresent := app.RoutingTable.GetRoute(r.URL.Path, r.Method)
+
+	if !isPresent {
 		w.WriteHeader(http.StatusNotFound)
-		w.Header().Add("Content-Type", "text/html; charset=utf-8")
-		w.Write([]byte(templates.PageNotFound))
+		w.Write([]byte(RouteNotFound))
+		return
 	}
+
+	result.Handler(w, r)
 }

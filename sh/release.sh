@@ -97,7 +97,7 @@ git commit -m "Releasing version v$NEW_VERSION"
 git tag -a "v$NEW_VERSION" -m "Releasing version v$NEW_VERSION"
 git push origin "v$NEW_VERSION"
 
-DOCKER_TAG="$DOCKER_USERNAME"/"$SERVICE_NAME":"v$NEW_VERSION"
+DOCKER_TAG="$DOCKER_USERNAME"/"$SERVICE_NAME":"$NEW_VERSION"
 
 docker build --no-cache -t "$DOCKER_TAG"  .
 docker push "$DOCKER_TAG"
