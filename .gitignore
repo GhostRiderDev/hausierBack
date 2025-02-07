@@ -1,2 +1,4 @@
 build
 app.exe
+prikey.pem
+pubkey.pem

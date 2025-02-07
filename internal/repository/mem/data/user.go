@@ -15,3 +15,7 @@ func (r UserRepositoryMem) InsertUser(user *model.User) error {
 	*r.users = append(users, *user)
 	return nil
 }
+
+func (r UserRepositoryMem) GetAllUsers() *[]model.User {
+	return r.users
+}

@@ -40,3 +40,39 @@ func (c *AuthController) Signup(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("User signed up successfully"))
 }
+
+
+func (c *AuthController) Signin(w http.ResponseWriter, r *http.Request) {
+	var user dto.UserSignin
+	err := json.NewDecoder(r.Body).Decode(&user)
+
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Invalid request payload"))
+		return
+	}
+
+	if user.Email == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Invalid Email"))
+		return
+	}
+
+	if user.Password == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Invalid Password"))
+		return
+	}
+
+	resp := c.Service.SigninUser(user)
+
+	response, err := json.Marshal(resp)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error processing response"))
+		return
+	}
+	
+	w.WriteHeader(http.StatusOK)
+	w.Write(response)
+}

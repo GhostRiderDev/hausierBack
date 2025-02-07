@@ -61,9 +61,9 @@ func loadRoutes(routingTable *rest.RouteRepository) {
 			Handler: authController.Signup,
 		},
 		{
-			Path:    "/",
-			Method:  http.MethodGet,
-			Handler: authController.Signup,
+			Path:   "/auth/signin",
+			Method: http.MethodPost,
+			Handler: authController.Signin,
 		},
 	}
 
